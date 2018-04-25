@@ -17,17 +17,34 @@ def for_standard_deviation(li):
     return (summation/(len(li)))**0.5
 
 # 1b
+# lambda solution
 def list_average(li):
     return reduce((lambda x, y: x + y), li)/len(li)
 
+# no lambda solution
+def list_average_2(li):
+    def add(x, y):
+        return x + y
+    return reduce(add, li)/len(li)
+
+# lambda solution
 def list_standard_deviation(li):
     return (reduce((lambda x, y: (y-(list_average(li)))**2 + x), li)/(len(li)))**0.5
+
+# no lambda solution
+def list_standard_deviation_2(li):
+    def summation(x, y):
+        return (y-(list_average_2(li)))**2 + x
+    return (reduce(summation, li)/len(li))**0.5
 
 # output
 print "--------------------------------------------------"
 print "Average (for loop): " + str(for_average(data))
 print "Standard Deviation (for loop): " + str(for_standard_deviation(data))
 print ""
-print "Average (list comprehension): " + str(list_average(data))
-print "Standard Deviation (list comprehension): " + str(list_standard_deviation(data))
+print "Average (list comprehension with lambda): " + str(list_average(data))
+print "Standard Deviation (list comprehension with lambda): " + str(list_standard_deviation(data))
+print ""
+print "Average (list comprehension without lambda): " + str(list_average_2(data))
+print "Standard Deviation (list comprehension without lambda): " + str(list_standard_deviation_2(data)) 
 print "--------------------------------------------------"
